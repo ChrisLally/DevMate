@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen p-4">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-screen">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-[calc(100vh-2rem)]">
         <div className="border rounded-lg overflow-hidden">
           <Editor 
             sections={sections}

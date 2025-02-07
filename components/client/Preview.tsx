@@ -1,10 +1,10 @@
 'use client';
-import { parseMarkdown } from '@/utils/markdownParser';
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useState } from 'react';
-import { Download, Copy, Check } from 'lucide-react';
+import { Copy, Check, Download } from 'lucide-react';
+import { micromark } from 'micromark';
 
 interface PreviewProps {
   content: string;
@@ -13,7 +13,9 @@ interface PreviewProps {
 export function Preview({ content }: PreviewProps) {
   const [showRaw, setShowRaw] = useState(false);
   const [copied, setCopied] = useState(false);
-  const htmlContent = parseMarkdown(content);
+  const htmlContent = micromark(content, {
+    allowDangerousHtml: true
+  });
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(content);
@@ -81,8 +83,8 @@ export function Preview({ content }: PreviewProps) {
           <pre className="font-mono text-sm whitespace-pre-wrap">{content}</pre>
         ) : (
           <div
-            className="prose prose-sm"
-            dangerouslySetInnerHTML={{ __html: htmlContent || 'Preview will appear here...' }}
+            className="prose prose-sm dark:prose-invert [&_hr]:my-8 [&_h1]:font-bold [&_h2]:font-bold [&_h3]:font-bold [&_h4]:font-bold [&_h5]:font-bold [&_h6]:font-bold [&_h1]:text-2xl [&_h2]:text-xl [&_h3]:text-lg [&_h1]:leading-tight [&_h2]:leading-snug [&_h3]:leading-normal [&_h4]:leading-normal [&_h5]:leading-normal [&_h6]:leading-normal"
+            dangerouslySetInnerHTML={{ __html: htmlContent }}
           />
         )}
       </div>
