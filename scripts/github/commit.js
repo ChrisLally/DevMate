@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process')
+import { execSync } from 'child_process'
 
 const COMMIT_TYPES = [
   'feat',     // A new feature
@@ -40,9 +40,11 @@ function createCommit(details) {
     const commitMessage = formatCommitMessage(details)
     
     // Create the commit and push using GitHub CLI
+    console.log('Creating commit...')
     execSync(`git commit -m "${commitMessage}"`, { stdio: 'inherit' })
     console.log('\n✅ Commit created successfully!')
     
+    console.log('\nPushing changes...')
     execSync('git push', { stdio: 'inherit' })
     console.log('\n✅ Changes pushed successfully!')
   } catch (error) {
