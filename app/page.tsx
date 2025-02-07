@@ -1,34 +1,24 @@
-'use client';
-
-import { Editor } from '@/components/client/Editor';
-import { Preview } from '@/components/client/Preview';
-import { RuleSection, TechStack } from '@/types/rules';
-import { useState } from 'react';
-
 export default function Home() {
-  const [sections, setSections] = useState<RuleSection[]>([]);
-  const [selectedStack, setSelectedStack] = useState<TechStack | null>(null);
-
-  const content = sections
-    .sort((a, b) => a.order - b.order)
-    .map(section => `## ${section.title}\n\n${section.content}`)
-    .join('\n\n---\n\n');
-
   return (
-    <main className="min-h-screen p-4">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-[calc(100vh-2rem)]">
-        <div className="border rounded-lg overflow-hidden">
-          <Editor 
-            sections={sections}
-            selectedStack={selectedStack}
-            onUpdateSections={setSections}
-            onSelectStack={setSelectedStack}
-          />
-        </div>
-        <div className="border rounded-lg overflow-hidden">
-          <Preview content={content} />
-        </div>
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold">Welcome to DevMate</h1>
+      <p className="text-muted-foreground">
+        Create and manage your development rules files with ease. Get started by creating a new rule or viewing existing ones.
+      </p>
+      <div className="flex gap-4">
+        <a 
+          href="/rules/new" 
+          className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90"
+        >
+          Create New Rule
+        </a>
+        <a 
+          href="/rules" 
+          className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground"
+        >
+          View Rules
+        </a>
       </div>
-    </main>
+    </div>
   );
 }
