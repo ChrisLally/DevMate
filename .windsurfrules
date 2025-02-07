@@ -1,0 +1,96 @@
+# Next.js 15 Project Development Guidelines
+
+Every time you choose to apply a rule(s), explicitly state the rule(s) in the output. You can abbreviate the rule description to a single word or phrase.
+
+## Project Context
+DevMate is a web application designed to help users create and manage their windsurfrules or cursorrules files. The tool provides an intuitive interface for users to:
+- Define their tech stack and project requirements
+- Add or remove rule sections dynamically
+- Generate properly formatted rules files
+- Preview changes in real-time
+
+## Core Stack
+- Next.js 15 (App Router)
+- TypeScript
+- Shadcn UI + Tailwind CSS
+- Supabase (Auth & Database)
+
+## Directory Structure
+```
+/
+├── app/              # App router & API routes
+├── components/       # React components
+│   ├── server/      # Server Components
+│   └── client/      # Client Components with 'use client'
+├── actions/          # Server Actions
+├── services/         # External integrations
+├── types/           # Type definitions
+├── utils/           # Utility functions
+├── config/          # Environment & constants
+└── public/          # Static assets
+```
+
+## Code Style and Structure
+- Write concise, technical TypeScript code with accurate examples
+- Default to React Server Components
+- Keep client components in 'use client' files
+- Use functional and declarative programming patterns
+- Prefer iteration and modularization over code duplication
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
+- Implement proper error boundaries and Suspense for async operations
+- Prefer Server Components and Server Actions over client-side state management
+
+## Naming Conventions
+- Use lowercase with dashes for directories (e.g., components/form-wizard)
+- Favor named exports for components and utilities
+- Use PascalCase for component files (e.g., UserProfile.tsx)
+- Use camelCase for utility files (e.g., formValidator.ts)
+- Prefix handlers with "handle" (handleSubmit, handleClick)
+
+## TypeScript Usage
+- Use TypeScript strict mode for all code
+- Prefer interfaces over types for public APIs
+- Avoid enums; use const objects with 'as const' assertion
+- Use functional components with TypeScript interfaces
+- Use absolute imports with @/...
+- Avoid try/catch blocks unless there's good reason to translate or handle error in that abstraction
+- Use explicit return types for all functions
+- Use `satisfies` operator for type validation
+
+## State Management
+- Default to Server Components for data fetching and state
+- Use Server Actions for form submissions and data mutations
+- For client-side state:
+  - Keep state as local as possible to where it's needed
+  - Use React Context only when state needs to be shared
+  - Implement proper cleanup in effects
+- Handle async operations through Server Actions
+
+## UI and Styling
+- Use Shadcn UI and Radix for components
+- Use `npx shadcn@latest add <component-name>` to add new shadcn components
+- Implement Tailwind CSS for styling
+- Document new shadcn component installations
+- Follow responsive design principles
+- Optimize for all device sizes
+
+## Performance
+- Optimize images with next/image
+- Implement code splitting
+- Minimize client JavaScript
+- Use proper caching strategies
+- Implement streaming and progressive rendering where appropriate
+
+## Error Handling
+- Implement proper error boundaries
+- Log errors appropriately for debugging
+- Provide user-friendly error messages
+- Handle network failures gracefully
+- Use proper error types and discriminated unions
+
+## Documentation
+- Maintain clear README with setup instructions
+- Document API interactions and data flows
+- Document environment variables
+- Don't include comments unless it's for complex logic
+- Keep documentation up to date with changes
