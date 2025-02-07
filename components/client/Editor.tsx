@@ -1,35 +1,31 @@
 'use client';
 
-import { TechStack } from '@/types/rules';
+import { RuleSection, TechStack } from '@/types/rules';
 import { TechStackSelector } from './TechStackSelector';
+import { RuleSections } from './RuleSections';
 
 // Rule: Use TypeScript interfaces
 interface EditorProps {
-  content: string;
+  sections: RuleSection[];
   selectedStack: TechStack | null;
-  onChange: (content: string) => void;
+  onUpdateSections: (sections: RuleSection[]) => void;
   onSelectStack: (stack: TechStack) => void;
 }
 
 // Rule: Functional components with TypeScript
-export function Editor({ content, selectedStack, onChange, onSelectStack }: EditorProps) {
-  // Rule: Prefix handlers with "handle"
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    onChange(e.target.value);
-  };
-
+export function Editor({ sections, selectedStack, onUpdateSections, onSelectStack }: EditorProps) {
   return (
     <div className="h-full flex flex-col gap-4 p-4">
       <TechStackSelector 
         selectedStack={selectedStack} 
         onSelect={onSelectStack}
       />
-      <textarea
-        className="flex-1 w-full p-4 font-mono text-sm bg-background resize-none rounded-lg border"
-        value={content}
-        onChange={handleTextChange}
-        placeholder="Start typing your rules..."
-      />
+      <div className="flex-1 overflow-auto">
+        <RuleSections 
+          sections={sections} 
+          onChange={onUpdateSections}
+        />
+      </div>
     </div>
   );
 }
